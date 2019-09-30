@@ -15,12 +15,26 @@ public interface OrderMapper {
             "FROM t_order",
             "WHERE order_id = #{id}"
     })
-    List<Order> getById(int id);
+    List<Order> getByOrderId(int orderId);
+
+    @Select({
+            "SELECT *",
+            "FROM t_order",
+            "WHERE user_id = #{id}"
+    })
+    List<Order> getByUserId(int userId);
+
+    @Select({
+            "SELECT *",
+            "FROM t_order",
+            "WHERE order_id = #{orderId} and user_id = #{userId} "
+    })
+    List<Order> getByUserIdAndOrderId(@Param("orderId")int orderId, @Param("userId")int userId);
 
     @Insert({
-            "INSERT INTO t_order (order_id, user_id, description)",
-            "VALUES (#{order_id}, #{user_id}, #{description})"
+            "INSERT INTO t_order (order_id, user_id)",
+            "VALUES (#{order_id}, #{user_id})"
     })
-    int add(@Param("order_id") int orderID, @Param("user_id")int userId, @Param("description")String description);
+    int add(@Param("order_id") int orderID, @Param("user_id")int userId);
 
 }
