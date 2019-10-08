@@ -5,10 +5,19 @@ import lombok.Data;
 @Data
 public class Order {
 
-    private int orderId;
+    private String orderId;
 
-    private int userID;
+    private Integer userID;
 
     private String description;
+
+    public Order() {
+
+    }
+
+    public Order(String orderId, int userID) {
+        this.orderId = orderId;
+        this.userID = userID;
+    }
 
 }

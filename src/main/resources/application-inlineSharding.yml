@@ -1,0 +1,17 @@
+spring:
+    profiles:
+        active: sharding
+    shardingsphere:
+        sharding:
+            tables:
+                t_order:
+                    # 注意配合读写分离使用时，此处应该用master-slave-rules中定义的数据源名称
+                    actual-data-nodes: ds_$->{0..1}.t_order_$->{0..1}
+                    database-strategy:
+                        inline:
+                            algorithm-expression: ds_$->{user_id % 2}
+                            sharding-column: user_id
+                    table-strategy:
+                        inline:
+                            algorithm-expression: t_order_$->{order_id % 2}
+                            sharding-column: order_id

@@ -37,4 +37,9 @@ public interface OrderMapper {
     })
     int add(@Param("order_id") int orderID, @Param("user_id")int userId);
 
+    @Select({
+            "SELECT *",
+            "FROM t_order",
+    })
+    List<Order> getAll();
 }

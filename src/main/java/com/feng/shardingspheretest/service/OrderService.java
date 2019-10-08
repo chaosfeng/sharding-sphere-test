@@ -25,6 +25,10 @@ public class OrderService {
         return orderMapper.getByUserIdAndOrderId(orderId, userId);
     }
 
+    public List<Order> getAll(){
+        return orderMapper.getAll();
+    }
+
     public int add(int orderId, int userId){
         return orderMapper.add(orderId, userId);
     }

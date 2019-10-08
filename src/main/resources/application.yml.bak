@@ -1,15 +1,5 @@
 spring:
     shardingsphere:
-        sharding:
-            master-slave-rules:
-                ds_0:
-                    master-data-source-name: master0
-                    slave-data-source-names: master0slave0, master0slave1
-                    load-balance-algorithm-type: ROUND_ROBIN
-                ds_1:
-                    master-data-source-name: master1
-                    slave-data-source-names: master1slave0, master1slave1
-                    load-balance-algorithm-type: ROUND_ROBIN
         datasource:
             names: master0,master1,master0slave0,master0slave1,master1slave0,master1slave1
             master0:
@@ -48,6 +38,45 @@ spring:
                 type: com.alibaba.druid.pool.DruidDataSource
                 url: jdbc:mysql://localhost:3306/master1slave1
                 username: root
+        sharding:
+            binding-tables: t_order,t_order_item
+            broadcast-tables: t_config
+            master-slave-rules:
+                ds_0:
+                    master-data-source-name: master0
+                    slave-data-source-names: master0slave0, master0slave1
+                    load-balance-algorithm-type: ROUND_ROBIN
+                ds_1:
+                    master-data-source-name: master1
+                    slave-data-source-names: master1slave0, master1slave1
+                    load-balance-algorithm-type: ROUND_ROBIN
+            tables:
+                t_order:
+                    actual-data-nodes: ds_$->{0..1}.t_order_$->{0..1}
+                    key-generator:
+                        column: order_id
+                        type: SNOWFLAKE
+                    database-strategy:
+                        inline:
+                            algorithm-expression: ds_$->{user_id % 2}
+                            sharding-column: user_id
+                    table-strategy:
+                        inline:
+                            algorithm-expression: t_order_$->{order_id % 2}
+                            sharding-column: order_id
+                t_order_item:
+                    actual-data-nodes: ds_$->{0..1}.t_order_item_$->{0..1}
+                    key-generator:
+                        column: order_item_id
+                        type: SNOWFLAKE
+                    database-strategy:
+                        inline:
+                            algorithm-expression: ds_$->{user_id % 2}
+                            sharding-column: user_id
+                    table-strategy:
+                        inline:
+                            algorithm-expression: t_order_item_$->{order_id % 2}
+                            sharding-column: order_id
         props:
             sql:
                 show: true
