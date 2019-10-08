@@ -3,9 +3,11 @@ package com.feng.shardingspheretest.test.shardingJDBC;
 import com.feng.shardingspheretest.domain.Order;
 import com.feng.shardingspheretest.service.JDBCService;
 import com.feng.shardingspheretest.service.OrderService;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,16 +19,15 @@ import java.util.List;
  * 读写分离(主从未配置同步) + 分库分表(InlineShardingStrategy) 读写测试
  */
 @RunWith(SpringRunner.class)
-@ActiveProfiles("inlineSharding")
+@ActiveProfiles("RWSplittingCombineSharding")
 @SpringBootTest
-@FixMethodOrder(MethodSorters.JVM)// 按代码中方法的先后顺序执行
-public class InlineShardingTest {
+public class RWSplittingCombineShardingTest {
 
     @Autowired
     OrderService orderService;
 
-    @Before
-    public void init() {
+    @BeforeClass
+    public static void init() {
         // 清理旧数据
         JDBCService.clearOrderInAllDB();
 
@@ -42,12 +43,6 @@ public class InlineShardingTest {
 
         JDBCService.addOrder("master1slave1", "t_order_0", new Order("0",1));
         JDBCService.addOrder("master1slave1", "t_order_1", new Order("1",1));
-    }
-
-    @After
-    public void clear() {
-        // 清理旧数据
-        JDBCService.clearOrderInAllDB();
     }
 
     // 读写分离（数据库未配置主从同步） + 分库分表，插入测试
@@ -89,7 +84,7 @@ public class InlineShardingTest {
         Assert.assertEquals("master1.t_order_1", orderList4.get(0).getDescription());
     }
 
-    // 读写分离（主从未配置同步） + 分库分表，查询测试（以分库和分表字段为查询条件）
+    // 读写分离（主从未配置同步） + 分库分表，查询测试（以库分片键和表分片键为查询条件）
     @Test
     public void queryOrderByUserIdAndOrderIdTest() {
         // 使用sharding-jdbc查询数据：均应从slave库查询
@@ -142,7 +137,7 @@ public class InlineShardingTest {
         Assert.assertEquals("master1slave1.t_order_1", orderList42.get(0).getDescription());
     }
 
-    // 读写分离（主从未配置同步） + 分库分表，查询测试（以分库或分表字段为查询条件）
+    // 读写分离（主从未配置同步） + 分库分表，查询测试（以库分片键或表分片键为查询条件）
     @Test
     public void queryOrderByUserIdOrOrderIdTest() {
         List<Order> orderList1 = orderService.getByOrderId(0);// 应从master0slave0的t_order_0和master1slave0的t_order_0查询并合并数据
@@ -187,6 +182,12 @@ public class InlineShardingTest {
     public void queryAllOrder() {
         List<Order> orderList = orderService.getAll();
         Assert.assertEquals(4, orderList.size());
+    }
+
+    @AfterClass
+    public static void clear() {
+        // 清理旧数据
+        JDBCService.clearOrderInAllDB();
     }
 
 }

@@ -113,26 +113,26 @@
 
     <profiles>
         <profile>
-            <id>inlineSharding</id>
+            <id>RWSplittingCombineSharding</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <build>
-                <filters>
-                    <filter>src/resources/application-inlineSharding.yml</filter>
-                </filters>
-            </build>
+            <!--<build>-->
+                <!--<filters>-->
+                    <!--<filter>src/resources/application-RWSplittingCombineSharding.yml</filter>-->
+                <!--</filters>-->
+            <!--</build>-->
         </profile>
         <profile>
-            <id>hint</id>
+            <id>complexSharding</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <build>
-                <filters>
-                    <filter>src/resources/application-hint.yml</filter>
-                </filters>
-            </build>
+            <!--<build>-->
+                <!--<filters>-->
+                    <!--<filter>src/resources/application-complexSharding.yml</filter>-->
+                <!--</filters>-->
+            <!--</build>-->
         </profile>
     </profiles>
 </project>

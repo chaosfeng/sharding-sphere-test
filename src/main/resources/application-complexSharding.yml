@@ -1,0 +1,16 @@
+spring:
+    profiles:
+        active: complexSharding
+    shardingsphere:
+        sharding:
+            tables:
+                t_order:
+                    actual-data-nodes: master$->{0..1}.t_order_$->{0..1}
+                    database-strategy:
+                        complex:
+                            sharding-columns: order_id,user_id
+                            algorithm-class-name: com.feng.shardingspheretest.sharding.complex.ComplexKeysShardingDatabaseAlgorithm
+                    table-strategy:
+                        complex:
+                            sharding-columns: order_id,user_id
+                            algorithm-class-name: com.feng.shardingspheretest.sharding.complex.ComplexKeysShardingTableAlgorithm
