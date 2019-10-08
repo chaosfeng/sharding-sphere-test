@@ -145,5 +145,16 @@
             <!--</filters>-->
             <!--</build>-->
         </profile>
+        <profile>
+            <id>hintSharding</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <!--<build>-->
+            <!--<filters>-->
+            <!--<filter>src/resources/application-complexSharding.yml</filter>-->
+            <!--</filters>-->
+            <!--</build>-->
+        </profile>
     </profiles>
 </project>
