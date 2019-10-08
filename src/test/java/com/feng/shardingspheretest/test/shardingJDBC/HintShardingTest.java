@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 /**
- * 分库分表(hintSharding) 读写测试
+ * 分库分表(hintSharding) 测试
  */
 @RunWith(SpringRunner.class)
 @ActiveProfiles("hintSharding")
@@ -33,8 +33,6 @@ public class HintShardingTest {
         JDBCService.clearOrderInAllDB();
     }
 
-    // 读写分离（数据库未配置主从同步） + 分库分表，插入测试
-    // 此方法需第一个执行，后续测试依赖此处插入的数据
     @Test
     public void insertOrderTest() {
         HintManager hintManager = HintManager.getInstance();

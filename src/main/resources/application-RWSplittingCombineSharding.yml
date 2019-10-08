@@ -4,14 +4,15 @@ spring:
     shardingsphere:
         sharding:
             master-slave-rules:
-                ds_0:
+                ds_0: #自定义一组主从数据库的逻辑数据源名称
                     master-data-source-name: master0
                     slave-data-source-names: master0slave0, master0slave1
                     load-balance-algorithm-type: ROUND_ROBIN
                 ds_1:
                     master-data-source-name: master1
                     slave-data-source-names: master1slave0, master1slave1
-                    load-balance-algorithm-type: ROUND_ROBIN
+#                    load-balance-algorithm-class-name= #从库负载均衡算法类名称。该类需实现MasterSlaveLoadBalanceAlgorithm接口且提供无参数构造器
+                    load-balance-algorithm-type: ROUND_ROBIN #可选值：ROUND_ROBIN，RANDOM。若`load-balance-algorithm-class-name`存在则忽略该配置
             tables:
                 t_order:
                     # 注意配合读写分离使用时，此处应该用master-slave-rules中定义的数据源名称
