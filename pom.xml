@@ -134,5 +134,16 @@
                 <!--</filters>-->
             <!--</build>-->
         </profile>
+        <profile>
+            <id>standardSharding</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <!--<build>-->
+            <!--<filters>-->
+            <!--<filter>src/resources/application-complexSharding.yml</filter>-->
+            <!--</filters>-->
+            <!--</build>-->
+        </profile>
     </profiles>
 </project>

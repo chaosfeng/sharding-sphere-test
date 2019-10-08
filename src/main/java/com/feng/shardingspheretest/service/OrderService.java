@@ -21,7 +21,7 @@ public class OrderService {
         return orderMapper.getByUserId(userId);
     }
 
-    public List<Order> getByUserIdAndOrderId(int orderId, int userId){
+    public List<Order> getByOrderIdAndUserId(int orderId, int userId){
         return orderMapper.getByUserIdAndOrderId(orderId, userId);
     }
 
@@ -31,5 +31,17 @@ public class OrderService {
 
     public int add(int orderId, int userId){
         return orderMapper.add(orderId, userId);
+    }
+
+    public List<Order> getByRangeOrderId(int orderIdStart, int orderIdEnd) {
+        return orderMapper.getByRangeOrderId(orderIdStart, orderIdEnd);
+    }
+
+    public List<Order> getByRangeUserId(int userIdStart, int userIdEnd) {
+        return orderMapper.getByRangeUserId(userIdStart, userIdEnd);
+    }
+
+    public List<Order> getByRangeOrderIdAndUserId(int orderIdStart, int orderIdEnd, int userIdStart, int userIdEnd) {
+        return orderMapper.getByRangeOrderIdAndUserId(orderIdStart, orderIdEnd, userIdStart, userIdEnd);
     }
 }

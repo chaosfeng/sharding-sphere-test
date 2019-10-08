@@ -1,0 +1,18 @@
+spring:
+    profiles:
+        active: standardSharding
+    shardingsphere:
+        sharding:
+            tables:
+                t_order:
+                    actual-data-nodes: master$->{0..1}.t_order_$->{0..1}
+                    database-strategy:
+                        standard:
+                            sharding-column: user_id
+                            precise-algorithm-class-name: com.feng.shardingspheretest.sharding.standard.PreciseShardingDatabaseAlgorithm
+                            range-algorithm-class-name: com.feng.shardingspheretest.sharding.standard.RangeShardingDatabaseAlgorithm #可选
+                    table-strategy:
+                        standard:
+                            sharding-column: order_id
+                            precise-algorithm-class-name: com.feng.shardingspheretest.sharding.standard.PreciseShardingTableAlgorithm
+                            range-algorithm-class-name: com.feng.shardingspheretest.sharding.standard.RangeShardingTableAlgorithm #可选

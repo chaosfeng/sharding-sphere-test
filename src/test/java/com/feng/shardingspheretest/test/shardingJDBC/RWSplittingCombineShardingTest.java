@@ -88,49 +88,49 @@ public class RWSplittingCombineShardingTest {
     @Test
     public void queryOrderByUserIdAndOrderIdTest() {
         // 使用sharding-jdbc查询数据：均应从slave库查询
-        List<Order> orderList11 = orderService.getByUserIdAndOrderId(0, 0);// 应查询master0slave0的t_order_0
+        List<Order> orderList11 = orderService.getByOrderIdAndUserId(0, 0);// 应查询master0slave0的t_order_0
         Assert.assertEquals(1, orderList11.size());
         Assert.assertEquals("0", orderList11.get(0).getOrderId());
         Assert.assertEquals(0, orderList11.get(0).getUserID().intValue());
         Assert.assertEquals("master0slave0.t_order_0", orderList11.get(0).getDescription());
 
-        List<Order> orderList12 = orderService.getByUserIdAndOrderId(0, 0);// 应查询master0slave1的t_order_0
+        List<Order> orderList12 = orderService.getByOrderIdAndUserId(0, 0);// 应查询master0slave1的t_order_0
         Assert.assertEquals(1, orderList12.size());
         Assert.assertEquals("0", orderList12.get(0).getOrderId());
         Assert.assertEquals(0, orderList12.get(0).getUserID().intValue());
         Assert.assertEquals("master0slave1.t_order_0", orderList12.get(0).getDescription());
 
-        List<Order> orderList21 = orderService.getByUserIdAndOrderId(1, 0);// 应查询master0slave0的t_order_1
+        List<Order> orderList21 = orderService.getByOrderIdAndUserId(1, 0);// 应查询master0slave0的t_order_1
         Assert.assertEquals(1, orderList21.size());
         Assert.assertEquals("1", orderList21.get(0).getOrderId());
         Assert.assertEquals(0, orderList21.get(0).getUserID().intValue());
         Assert.assertEquals("master0slave0.t_order_1", orderList21.get(0).getDescription());
 
-        List<Order> orderList22 = orderService.getByUserIdAndOrderId(1, 0);// 应查询master0slave1的t_order_1
+        List<Order> orderList22 = orderService.getByOrderIdAndUserId(1, 0);// 应查询master0slave1的t_order_1
         Assert.assertEquals(1, orderList22.size());
         Assert.assertEquals("1", orderList22.get(0).getOrderId());
         Assert.assertEquals(0, orderList22.get(0).getUserID().intValue());
         Assert.assertEquals("master0slave1.t_order_1", orderList22.get(0).getDescription());
 
-        List<Order> orderList31 = orderService.getByUserIdAndOrderId(0, 1);// 应查询master1slave0的t_order_0
+        List<Order> orderList31 = orderService.getByOrderIdAndUserId(0, 1);// 应查询master1slave0的t_order_0
         Assert.assertEquals(1, orderList31.size());
         Assert.assertEquals("0", orderList31.get(0).getOrderId());
         Assert.assertEquals(1, orderList31.get(0).getUserID().intValue());
         Assert.assertEquals("master1slave0.t_order_0", orderList31.get(0).getDescription());
 
-        List<Order> orderList32 = orderService.getByUserIdAndOrderId(0, 1);// 应查询master1slave1的t_order_0
+        List<Order> orderList32 = orderService.getByOrderIdAndUserId(0, 1);// 应查询master1slave1的t_order_0
         Assert.assertEquals(1, orderList32.size());
         Assert.assertEquals("0", orderList32.get(0).getOrderId());
         Assert.assertEquals(1, orderList32.get(0).getUserID().intValue());
         Assert.assertEquals("master1slave1.t_order_0", orderList32.get(0).getDescription());
 
-        List<Order> orderList41 = orderService.getByUserIdAndOrderId(1, 1);// 应查询master1slave0的t_order_1
+        List<Order> orderList41 = orderService.getByOrderIdAndUserId(1, 1);// 应查询master1slave0的t_order_1
         Assert.assertEquals(1, orderList41.size());
         Assert.assertEquals("1", orderList41.get(0).getOrderId());
         Assert.assertEquals(1, orderList41.get(0).getUserID().intValue());
         Assert.assertEquals("master1slave0.t_order_1", orderList41.get(0).getDescription());
 
-        List<Order> orderList42 = orderService.getByUserIdAndOrderId(1, 1);// 应查询master1slave1的t_order_1
+        List<Order> orderList42 = orderService.getByOrderIdAndUserId(1, 1);// 应查询master1slave1的t_order_1
         Assert.assertEquals(1, orderList42.size());
         Assert.assertEquals("1", orderList42.get(0).getOrderId());
         Assert.assertEquals(1, orderList42.get(0).getUserID().intValue());
