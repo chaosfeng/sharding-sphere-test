@@ -20,6 +20,20 @@ CREATE TABLE `t_order_1` (
   `description` varchar(255) NOT NULL DEFAULT 'master0.t_order_1',
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `t_user_0` (
+  `user_id` int(11) NOT NULL,
+  `user_code` int(11) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT 'master0.t_user_0',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `t_user_1` (
+  `user_id` int(11) NOT NULL,
+  `user_code` int(11) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT 'master0.t_user_1',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 use master0slave0;
 CREATE TABLE `t_order_0` (
@@ -61,6 +75,20 @@ CREATE TABLE `t_order_1` (
   `user_id` int(11) NOT NULL,
   `description` varchar(255) NOT NULL DEFAULT 'master1.t_order_1',
   PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `t_user_0` (
+  `user_id` int(11) NOT NULL,
+  `user_code` int(11) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT 'master1.t_user_0',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `t_user_1` (
+  `user_id` int(11) NOT NULL,
+  `user_code` int(11) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT 'master1.t_user_1',
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 use master1slave0;

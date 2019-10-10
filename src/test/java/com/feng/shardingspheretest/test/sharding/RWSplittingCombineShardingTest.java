@@ -1,4 +1,4 @@
-package com.feng.shardingspheretest.test.shardingJDBC;
+package com.feng.shardingspheretest.test.sharding;
 
 import com.feng.shardingspheretest.domain.Order;
 import com.feng.shardingspheretest.service.JDBCService;
@@ -62,25 +62,25 @@ public class RWSplittingCombineShardingTest {
         List<Order> orderList1 = JDBCService.getAllOrders("master0", "t_order_0");
         Assert.assertEquals(1, orderList1.size());
         Assert.assertEquals("0", orderList1.get(0).getOrderId());
-        Assert.assertEquals(0, orderList1.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList1.get(0).getUserId().intValue());
         Assert.assertEquals("master0.t_order_0", orderList1.get(0).getDescription());
 
         List<Order> orderList2 = JDBCService.getAllOrders("master0", "t_order_1");
         Assert.assertEquals(1, orderList2.size());
         Assert.assertEquals("1", orderList2.get(0).getOrderId());
-        Assert.assertEquals(0, orderList2.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList2.get(0).getUserId().intValue());
         Assert.assertEquals("master0.t_order_1", orderList2.get(0).getDescription());
 
         List<Order> orderList3 = JDBCService.getAllOrders("master1", "t_order_0");
         Assert.assertEquals(1, orderList3.size());
         Assert.assertEquals("0", orderList3.get(0).getOrderId());
-        Assert.assertEquals(1, orderList3.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList3.get(0).getUserId().intValue());
         Assert.assertEquals("master1.t_order_0", orderList3.get(0).getDescription());
 
         List<Order> orderList4 = JDBCService.getAllOrders("master1", "t_order_1");
         Assert.assertEquals(1, orderList4.size());
         Assert.assertEquals("1", orderList4.get(0).getOrderId());
-        Assert.assertEquals(1, orderList4.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList4.get(0).getUserId().intValue());
         Assert.assertEquals("master1.t_order_1", orderList4.get(0).getDescription());
     }
 
@@ -91,49 +91,49 @@ public class RWSplittingCombineShardingTest {
         List<Order> orderList11 = orderService.getByOrderIdAndUserId(0, 0);// 应查询master0slave0的t_order_0
         Assert.assertEquals(1, orderList11.size());
         Assert.assertEquals("0", orderList11.get(0).getOrderId());
-        Assert.assertEquals(0, orderList11.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList11.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave0.t_order_0", orderList11.get(0).getDescription());
 
         List<Order> orderList12 = orderService.getByOrderIdAndUserId(0, 0);// 应查询master0slave1的t_order_0
         Assert.assertEquals(1, orderList12.size());
         Assert.assertEquals("0", orderList12.get(0).getOrderId());
-        Assert.assertEquals(0, orderList12.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList12.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave1.t_order_0", orderList12.get(0).getDescription());
 
         List<Order> orderList21 = orderService.getByOrderIdAndUserId(1, 0);// 应查询master0slave0的t_order_1
         Assert.assertEquals(1, orderList21.size());
         Assert.assertEquals("1", orderList21.get(0).getOrderId());
-        Assert.assertEquals(0, orderList21.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList21.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave0.t_order_1", orderList21.get(0).getDescription());
 
         List<Order> orderList22 = orderService.getByOrderIdAndUserId(1, 0);// 应查询master0slave1的t_order_1
         Assert.assertEquals(1, orderList22.size());
         Assert.assertEquals("1", orderList22.get(0).getOrderId());
-        Assert.assertEquals(0, orderList22.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList22.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave1.t_order_1", orderList22.get(0).getDescription());
 
         List<Order> orderList31 = orderService.getByOrderIdAndUserId(0, 1);// 应查询master1slave0的t_order_0
         Assert.assertEquals(1, orderList31.size());
         Assert.assertEquals("0", orderList31.get(0).getOrderId());
-        Assert.assertEquals(1, orderList31.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList31.get(0).getUserId().intValue());
         Assert.assertEquals("master1slave0.t_order_0", orderList31.get(0).getDescription());
 
         List<Order> orderList32 = orderService.getByOrderIdAndUserId(0, 1);// 应查询master1slave1的t_order_0
         Assert.assertEquals(1, orderList32.size());
         Assert.assertEquals("0", orderList32.get(0).getOrderId());
-        Assert.assertEquals(1, orderList32.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList32.get(0).getUserId().intValue());
         Assert.assertEquals("master1slave1.t_order_0", orderList32.get(0).getDescription());
 
         List<Order> orderList41 = orderService.getByOrderIdAndUserId(1, 1);// 应查询master1slave0的t_order_1
         Assert.assertEquals(1, orderList41.size());
         Assert.assertEquals("1", orderList41.get(0).getOrderId());
-        Assert.assertEquals(1, orderList41.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList41.get(0).getUserId().intValue());
         Assert.assertEquals("master1slave0.t_order_1", orderList41.get(0).getDescription());
 
         List<Order> orderList42 = orderService.getByOrderIdAndUserId(1, 1);// 应查询master1slave1的t_order_1
         Assert.assertEquals(1, orderList42.size());
         Assert.assertEquals("1", orderList42.get(0).getOrderId());
-        Assert.assertEquals(1, orderList42.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList42.get(0).getUserId().intValue());
         Assert.assertEquals("master1slave1.t_order_1", orderList42.get(0).getDescription());
     }
 
@@ -143,37 +143,37 @@ public class RWSplittingCombineShardingTest {
         List<Order> orderList1 = orderService.getByOrderId(0);// 应从master0slave0的t_order_0和master1slave0的t_order_0查询并合并数据
         Assert.assertEquals(2, orderList1.size());
         Assert.assertEquals("0", orderList1.get(0).getOrderId());
-        Assert.assertEquals(0, orderList1.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList1.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave0.t_order_0", orderList1.get(0).getDescription());
         Assert.assertEquals("0", orderList1.get(1).getOrderId());
-        Assert.assertEquals(1, orderList1.get(1).getUserID().intValue());
+        Assert.assertEquals(1, orderList1.get(1).getUserId().intValue());
         Assert.assertEquals("master1slave0.t_order_0", orderList1.get(1).getDescription());
 
         List<Order> orderList2 = orderService.getByOrderId(1);// 应从master0slave1的t_order_1和master1slave1的t_order_1查询并合并数据
         Assert.assertEquals(2, orderList2.size());
         Assert.assertEquals("1", orderList2.get(0).getOrderId());
-        Assert.assertEquals(0, orderList2.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList2.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave1.t_order_1", orderList2.get(0).getDescription());
         Assert.assertEquals("1", orderList2.get(1).getOrderId());
-        Assert.assertEquals(1, orderList2.get(1).getUserID().intValue());
+        Assert.assertEquals(1, orderList2.get(1).getUserId().intValue());
         Assert.assertEquals("master1slave1.t_order_1", orderList2.get(1).getDescription());
 
         List<Order> orderList3 = orderService.getByUserId(0);// 应从master0slave0的t_order_0和master0slave1的t_order_1查询并合并数据
         Assert.assertEquals(2, orderList2.size());
         Assert.assertEquals("0", orderList3.get(0).getOrderId());
-        Assert.assertEquals(0, orderList3.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList3.get(0).getUserId().intValue());
         Assert.assertEquals("master0slave0.t_order_0", orderList3.get(0).getDescription());
         Assert.assertEquals("1", orderList3.get(1).getOrderId());
-        Assert.assertEquals(0, orderList3.get(1).getUserID().intValue());
+        Assert.assertEquals(0, orderList3.get(1).getUserId().intValue());
         Assert.assertEquals("master0slave1.t_order_1", orderList3.get(1).getDescription());
 
         List<Order> orderList4 = orderService.getByUserId(1);// 应从master1slave0的t_order_0和master1slave1的t_order_1查询并合并数据
         Assert.assertEquals(2, orderList2.size());
         Assert.assertEquals("0", orderList4.get(0).getOrderId());
-        Assert.assertEquals(1, orderList4.get(0).getUserID().intValue());
+        Assert.assertEquals(1, orderList4.get(0).getUserId().intValue());
         Assert.assertEquals("master1slave0.t_order_0", orderList4.get(0).getDescription());
         Assert.assertEquals("1", orderList4.get(1).getOrderId());
-        Assert.assertEquals(1, orderList4.get(1).getUserID().intValue());
+        Assert.assertEquals(1, orderList4.get(1).getUserId().intValue());
         Assert.assertEquals("master1slave1.t_order_1", orderList4.get(1).getDescription());
     }
 

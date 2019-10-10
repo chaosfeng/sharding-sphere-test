@@ -11,6 +11,9 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
+    @Select("${sql}")
+    List<Order> getListBysql(String sql);
+
     @Select({
             "SELECT *",
             "FROM t_order",

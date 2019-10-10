@@ -1,4 +1,4 @@
-package com.feng.shardingspheretest.test.shardingJDBC;
+package com.feng.shardingspheretest.test.sharding;
 
 import com.feng.shardingspheretest.domain.Order;
 import com.feng.shardingspheretest.service.JDBCService;
@@ -40,13 +40,14 @@ public class HintShardingTest {
         hintManager.addTableShardingValue("t_order", 100);
 
         int result1 = orderService.add(0, 0);// 应插入master0.t_order_0
+        hintManager.close();
         Assert.assertEquals(1, result1);
 
         // 使用原生JDBC查询单表，验证数据插入逻辑是否正确
         List<Order> orderList1 = JDBCService.getAllOrders("master0", "t_order_0");
         Assert.assertEquals(1, orderList1.size());
         Assert.assertEquals("0", orderList1.get(0).getOrderId());
-        Assert.assertEquals(0, orderList1.get(0).getUserID().intValue());
+        Assert.assertEquals(0, orderList1.get(0).getUserId().intValue());
         Assert.assertEquals("master0.t_order_0", orderList1.get(0).getDescription());
     }
 

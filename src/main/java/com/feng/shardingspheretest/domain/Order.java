@@ -7,7 +7,7 @@ public class Order {
 
     private String orderId;
 
-    private Integer userID;
+    private Integer userId;
 
     private String description;
 
@@ -15,9 +15,9 @@ public class Order {
 
     }
 
-    public Order(String orderId, int userID) {
+    public Order(String orderId, int userId) {
         this.orderId = orderId;
-        this.userID = userID;
+        this.userId = userId;
     }
 
 }

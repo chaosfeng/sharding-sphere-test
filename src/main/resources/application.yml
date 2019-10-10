@@ -1,4 +1,8 @@
+server:
+  port: 8000
 spring:
+    profiles:
+      active: @profile.active@
     shardingsphere:
         datasource:
             names: master0,master1,master0slave0,master0slave1,master1slave0,master1slave1

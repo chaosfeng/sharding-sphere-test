@@ -13,6 +13,10 @@ public class OrderService {
     @Autowired
     OrderMapper orderMapper;
 
+    public List<Order> getListBysql(String sql){
+        return orderMapper.getListBysql(sql);
+    }
+
     public List<Order> getByOrderId(int orderId){
         return orderMapper.getByOrderId(orderId);
     }

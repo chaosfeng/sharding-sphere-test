@@ -1,0 +1,38 @@
+
+spring:
+    shardingsphere:
+        sharding:
+            master-slave-rules:
+                ds_0:
+                    master-data-source-name: master0
+                    slave-data-source-names: master0slave0, master0slave1
+                    load-balance-algorithm-type: ROUND_ROBIN
+                ds_1:
+                    master-data-source-name: master1
+                    slave-data-source-names: master1slave0, master1slave1
+                    load-balance-algorithm-type: ROUND_ROBIN
+            tables:
+                t_order:
+                    actual-data-nodes: ds_$->{0..1}.t_order_$->{0..1}
+                    database-strategy:
+                        inline:
+                            algorithm-expression: ds_$->{user_id % 2}
+                            sharding-column: user_id
+                    table-strategy:
+                        inline:
+                            algorithm-expression: t_order_$->{order_id % 2}
+                            sharding-column: order_id
+        # 若希望启动时使用配置中心的配置，需将上面的配置注释掉！！！
+        orchestration:
+            name: sharding-jdbc-orchestration-feng #治理实例名称
+            overwrite: false #启动时是否将本地配置推送到配置中心，将配置中心的对应配置覆盖
+            registry:
+                type: zookeeper
+                server-lists: localhost:2181 #多个地址用逗号分隔
+                namespace: sharding-jdbc-orchestration  #注册中心的命名空间
+##                digest: #连接注册中心的权限令牌。缺省为不需要权限验证
+##                operation-timeout-milliseconds: #操作超时的毫秒数，默认500毫秒
+##                max-retries: #连接失败后的最大重试次数，默认3次
+##                retry-interval-milliseconds: #重试间隔毫秒数，默认500毫秒
+##                time-to-live-seconds: #临时节点存活秒数，默认60秒
+##                props: #配置中心其它属性

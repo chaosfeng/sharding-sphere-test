@@ -70,7 +70,7 @@ public class JDBCService {
             while (rs.next()) {
                 Order order = new Order();
                 order.setOrderId(rs.getString("order_id"));
-                order.setUserID(rs.getInt("user_id"));
+                order.setUserId(rs.getInt("user_id"));
                 order.setDescription(rs.getString("description"));
                 orderList.add(order);
             }
@@ -104,7 +104,7 @@ public class JDBCService {
             int result = st.executeUpdate(
                     "INSERT INTO " + tableName +
                             "(order_id,user_id) VALUES " +
-                                "('" + order.getOrderId() + "','" + order.getUserID() + "')");
+                                "('" + order.getOrderId() + "','" + order.getUserId() + "')");
             //6释放资源
             st.close();
             conn.close();
@@ -141,6 +141,13 @@ public class JDBCService {
 
         JDBCService.clear("master1slave1", "t_order_0");
         JDBCService.clear("master1slave1", "t_order_1");
+    }
+
+    public static void clearUserInAllDB() {
+        JDBCService.clear("master0", "t_user_0");
+        JDBCService.clear("master0", "t_user_1");
+        JDBCService.clear("master1", "t_user_0");
+        JDBCService.clear("master1", "t_user_1");
     }
 
 }
