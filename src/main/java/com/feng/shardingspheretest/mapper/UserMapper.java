@@ -17,7 +17,7 @@ public interface UserMapper {
     @Select({
             "SELECT *",
             "FROM t_user",
-            "WHERE user_id = #{id}"
+            "WHERE user_id = #{orderId}"
     })
     List<User> getByUserId(int userId);
 

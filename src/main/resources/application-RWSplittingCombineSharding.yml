@@ -13,6 +13,9 @@ spring:
                     load-balance-algorithm-type: ROUND_ROBIN #可选值：ROUND_ROBIN，RANDOM。若`load-balance-algorithm-class-name`存在则忽略该配置
             tables:
                 t_order:
+#                    key-generator:
+#                      column: order_id
+#                      type: SNOWFLAKE
                     # 注意配合读写分离使用时，此处应该用master-slave-rules中定义的数据源名称
                     actual-data-nodes: ds_$->{0..1}.t_order_$->{0..1}
                     database-strategy:

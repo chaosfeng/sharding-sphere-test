@@ -17,29 +17,35 @@ public interface OrderMapper {
     @Select({
             "SELECT *",
             "FROM t_order",
-            "WHERE order_id = #{id}"
+            "WHERE order_id = #{orderId}"
     })
     List<Order> getByOrderId(int orderId);
 
     @Select({
             "SELECT *",
             "FROM t_order",
-            "WHERE user_id = #{id}"
+            "WHERE user_id = #{orderId}"
     })
     List<Order> getByUserId(int userId);
 
     @Select({
             "SELECT *",
             "FROM t_order",
-            "WHERE order_id = #{orderId} and user_id = #{userId}"
+            "WHERE order_id = #{order_id} and user_id = #{userId}"
     })
-    List<Order> getByUserIdAndOrderId(@Param("orderId") int orderId, @Param("userId") int userId);
+    List<Order> getByUserIdAndOrderId(@Param("order_id") int orderId, @Param("userId") int userId);
 
     @Insert({
             "INSERT INTO t_order (order_id, user_id)",
-            "VALUES (#{order_id}, #{user_id})"
+            "VALUES (#{orderId}, #{userId})"
     })
-    int add(@Param("order_id") int orderID, @Param("user_id") int userId);
+    int add(@Param("orderId") int orderId, @Param("userId") int userId);
+
+    @Insert({
+            "INSERT INTO t_order (user_id)",
+            "VALUES (#{userId})"
+    })
+    int add2(@Param("userId") int userId);
 
     @Select({
             "SELECT *",
@@ -51,7 +57,7 @@ public interface OrderMapper {
     @Select({
             "SELECT *",
             "FROM t_order",
-            "WHERE order_id BETWEEN #{orderIdStart} AND #{orderIdEnd}"
+            "WHERE orderId BETWEEN #{orderIdStart} AND #{orderIdEnd}"
     })
     List<Order> getByRangeOrderId(@Param("orderIdStart") int orderIdStart, @Param("orderIdEnd") int orderIdEnd);
 
@@ -65,7 +71,7 @@ public interface OrderMapper {
     @Select({
             "SELECT *",
             "FROM t_order",
-            "WHERE order_id BETWEEN #{orderIdStart} and #{orderIdEnd}",
+            "WHERE orderId BETWEEN #{orderIdStart} and #{orderIdEnd}",
             "AND user_id BETWEEN #{userIdStart} and #{userIdEnd}",
     })
     List<Order> getByRangeOrderIdAndUserId(@Param("orderIdStart") int orderIdStart, @Param("orderIdEnd") int orderIdEnd,

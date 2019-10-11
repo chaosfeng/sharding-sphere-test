@@ -37,6 +37,10 @@ public class OrderService {
         return orderMapper.add(orderId, userId);
     }
 
+    public int add2(int userId){
+        return orderMapper.add2(userId);
+    }
+
     public List<Order> getByRangeOrderId(int orderIdStart, int orderIdEnd) {
         return orderMapper.getByRangeOrderId(orderIdStart, orderIdEnd);
     }

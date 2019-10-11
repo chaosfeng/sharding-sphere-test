@@ -34,13 +34,29 @@
             <!--<artifactId>sharding-jdbc-orchestration-spring-boot-starter</artifactId>-->
             <!--<version>${sharding-sphere.version}</version>-->
         <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shardingsphere</groupId>-->
+            <!--<artifactId>sharding-orchestration-reg-zookeeper-curator</artifactId>-->
+            <!--<version>${sharding-sphere.version}</version>-->
+        <!--</dependency>-->
 
-        <!--若使用zookeeper, 请加入下面Maven坐标-->
+
+        <!-- saga柔性事务 -->
         <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-orchestration-reg-zookeeper-curator</artifactId>
-            <version>${sharding-sphere.version}</version>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-transaction-base-saga</artifactId>
+            <version>4.0.0-RC2</version>
         </dependency>
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-transaction-jdbc-spring-boot-starter</artifactId>
+            <version>4.0.0-RC2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
