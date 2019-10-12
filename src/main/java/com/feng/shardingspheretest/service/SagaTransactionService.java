@@ -17,6 +17,8 @@
 
 package com.feng.shardingspheretest.service;
 
+import com.feng.shardingspheretest.exception.MyException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class SagaTransactionalService {
+@Slf4j
+public class SagaTransactionService {
 
     @Autowired
     OrderService orderService;
@@ -35,9 +38,12 @@ public class SagaTransactionalService {
     @ShardingTransactionType(TransactionType.BASE)
     @Transactional
     public void processSuccess() {
-        System.out.println("-------------- Process Success Begin ---------------");
+        log.info("-------------- Process Success Begin ---------------");
         orderService.add(0, 0);
-        System.out.println("-------------- Process Success Finish --------------");
+        orderService.add(0, 1);
+        orderService.add(1, 0);
+        orderService.add(1, 1);
+        log.info("-------------- Process Success Finish --------------");
     }
 
     /**
@@ -46,13 +52,17 @@ public class SagaTransactionalService {
     @ShardingTransactionType(TransactionType.BASE)
     @Transactional
     public void processFailure() {
-        System.out.println("-------------- Process Failure Begin ---------------");
-        orderService.add(2, 2);
-        orderService.add(1, 2);
-        orderService.add(2, 1);
+        log.info("-------------- Process Failure Begin ---------------");
+        orderService.add(0, 0);
+        orderService.add(0, 1);
+        orderService.add(1, 0);
         orderService.add(1, 1);
-        System.out.println("-------------- Process Failure Finish --------------");
-        throw new RuntimeException("Exception occur for transaction test.");
+        orderService.add(2, 2);
+        orderService.add(2, 3);
+        orderService.add(3, 2);
+        orderService.add(3, 3);
+        log.info("-------------- Process Failure Finish --------------");
+        throw new MyException("Exception occur for saga transaction test.");
     }
 
 }

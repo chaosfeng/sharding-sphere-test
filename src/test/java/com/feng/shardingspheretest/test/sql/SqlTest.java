@@ -20,7 +20,7 @@ import java.util.Map;
  * 分库分表,sql读写测试
  */
 @RunWith(SpringRunner.class)
-@ActiveProfiles("sqltest")
+@ActiveProfiles("inlineSharding")
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)//按方法名称排序执行
 public class SqlTest {
@@ -132,6 +132,8 @@ public class SqlTest {
     @Test
     public void test9_join() {
         // join不支持跨库，只会在库内进行join
+        
+        // bug here
         // join相关的A、B表，如果没有路由至单节点，则最终结果与期望可能有区别！！！！！！！！！！！！！！！
         // 实际sql如下：
         // Actual SQL: master0 ::: SELECT count(1) count FROM t_user_1 u INNER JOIN t_order_0 o ON u.user_id = o.user_id

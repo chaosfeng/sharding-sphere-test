@@ -1,22 +1,35 @@
 package com.feng.shardingspheretest.domain;
 
-import lombok.Data;
-
-import javax.persistence.*;
-
-@Data
-@Entity
-@Table(name = "t_order")
 public class Order {
 
-    @Id
-    @Column(name = "order_id")
     private String orderId;
 
-    @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "description")
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     private String description;
 
     public Order() {

@@ -41,12 +41,6 @@ public interface OrderMapper {
     })
     int add(@Param("orderId") int orderId, @Param("userId") int userId);
 
-    @Insert({
-            "INSERT INTO t_order (user_id)",
-            "VALUES (#{userId})"
-    })
-    int add2(@Param("userId") int userId);
-
     @Select({
             "SELECT *",
             "FROM t_order",
