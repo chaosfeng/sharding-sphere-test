@@ -6,7 +6,6 @@
     <modules>
         <module>sharding-jdbc-test</module>
         <module>sharding-proxy-test</module>
-        <module>saga-test</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
