@@ -7,8 +7,8 @@ spring:
                     database-strategy:
                         complex:
                             sharding-columns: order_id,user_id
-                            algorithm-class-name: com.feng.shardingjdbctest.algorithm.complex.ComplexKeysShardingDatabaseAlgorithm
+                            algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.complex.ComplexKeysShardingDatabaseAlgorithm
                     table-strategy:
                         complex:
                             sharding-columns: order_id,user_id
-                            algorithm-class-name: com.feng.shardingjdbctest.algorithm.complex.ComplexKeysShardingTableAlgorithm
+                            algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.complex.ComplexKeysShardingTableAlgorithm

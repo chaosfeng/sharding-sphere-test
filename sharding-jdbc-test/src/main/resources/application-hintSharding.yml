@@ -6,7 +6,7 @@ spring:
                     actual-data-nodes: master$->{0..1}.t_order_$->{0..1}
                     database-strategy:
                         hint:
-                          algorithm-class-name: com.feng.shardingjdbctest.algorithm.hint.HintShardingDatabaseAlgorithm
+                          algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.hint.HintShardingDatabaseAlgorithm
                     table-strategy:
                         hint:
-                          algorithm-class-name: com.feng.shardingjdbctest.algorithm.hint.HintShardingTableAlgorithm
+                          algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.hint.HintShardingTableAlgorithm

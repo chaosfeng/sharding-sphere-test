@@ -8,10 +8,10 @@ spring:
                     database-strategy:
                         standard:
                             sharding-column: user_id
-                            precise-algorithm-class-name: com.feng.shardingjdbctest.algorithm.standard.PreciseShardingDatabaseAlgorithm
-                            range-algorithm-class-name: com.feng.shardingjdbctest.algorithm.standard.RangeShardingDatabaseAlgorithm #可选
+                            precise-algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.standard.PreciseShardingDatabaseAlgorithm
+                            range-algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.standard.RangeShardingDatabaseAlgorithm #可选
                     table-strategy:
                         standard:
                             sharding-column: order_id
-                            precise-algorithm-class-name: com.feng.shardingjdbctest.algorithm.standard.PreciseShardingTableAlgorithm
-                            range-algorithm-class-name: com.feng.shardingjdbctest.algorithm.standard.RangeShardingTableAlgorithm #可选
+                            precise-algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.standard.PreciseShardingTableAlgorithm
+                            range-algorithm-class-name: com.feng.shardingspheretest.shardingjdbctest.algorithm.standard.RangeShardingTableAlgorithm #可选
