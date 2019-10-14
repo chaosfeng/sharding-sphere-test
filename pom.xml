@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>sharding-jdbc-test</module>
+        <module>sharding-proxy-test</module>
+        <module>saga-test</module>
+    </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -20,67 +26,6 @@
     </properties>
 
     <dependencies>
-        <!-- sharding-jdbc -->
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>${sharding-sphere.version}</version>
-        </dependency>
-
-        <!-- jdk11时，使用sharding-jdbc需要添加下方依赖 -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.2.11</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>2.2.11</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.11</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
-        <!-- sharding-jdbc-orchestration -->
-        <!--引入治理模块时务必去除sharding-jdbc-spring-boot-starter！！！！！-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.shardingsphere</groupId>-->
-        <!--<artifactId>sharding-jdbc-orchestration-spring-boot-starter</artifactId>-->
-        <!--<version>${sharding-sphere.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.shardingsphere</groupId>-->
-        <!--<artifactId>sharding-orchestration-reg-zookeeper-curator</artifactId>-->
-        <!--<version>${sharding-sphere.version}</version>-->
-        <!--</dependency>-->
-
-
-        <!-- saga柔性事务 START -->
-        <dependency>
-            <groupId>io.shardingsphere</groupId>
-            <artifactId>sharding-transaction-base-saga</artifactId>
-            <version>${sharding-sphere.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.shardingsphere</groupId>
-            <artifactId>sharding-transaction-jdbc-spring-boot-starter</artifactId>
-            <version>${sharding-sphere.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <!-- saga柔性事务 END -->
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -121,69 +66,13 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>RWSplittingCombineSharding</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>RWSplittingCombineSharding</profile.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>complexSharding</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>complexSharding</profile.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>standardSharding</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>standardSharding</profile.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>hintSharding</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>hintSharding</profile.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>orchestration</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>orchestration</profile.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>inlineSharding</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <profile.active>inlineSharding</profile.active>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
@@ -192,21 +81,5 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <!--<resources>-->
-            <!--<resource>-->
-                <!--<directory>src/main/resources</directory>-->
-                <!--<excludes>-->
-                    <!--<exclude>application*.yml</exclude>-->
-                <!--</excludes>-->
-            <!--</resource>-->
-            <!--<resource>-->
-                <!--<directory>src/main/resources</directory>-->
-                <!--<filtering>true</filtering>-->
-                <!--<includes>-->
-                    <!--<include>application.yml</include>-->
-                    <!--<include>application-${profile.active}.yml</include>-->
-                <!--</includes>-->
-            <!--</resource>-->
-        <!--</resources>-->
     </build>
 </project>

@@ -1,0 +1,53 @@
+server:
+  port: 8000
+spring:
+    profiles:
+      active: RWSplittingCombineSharding
+    shardingsphere:
+        datasource:
+            names: master0,master1,master0slave0,master0slave1,master1slave0,master1slave1
+            master0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: 'a'
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://localhost:3306/master0
+                username: root
+            master0slave0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: 'a'
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://localhost:3306/master0slave0
+                username: root
+            master0slave1:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: 'a'
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://localhost:3306/master0slave1
+                username: root
+            master1:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: 'a'
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://localhost:3306/master1
+                username: root
+            master1slave0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: 'a'
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://localhost:3306/master1slave0
+                username: root
+            master1slave1:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: 'a'
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://localhost:3306/master1slave1
+                username: root
+        props:
+            sql:
+                show: true
+logging:
+  config:
+    classpath:log4j2.xml
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
