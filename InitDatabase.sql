@@ -5,6 +5,7 @@ CREATE DATABASE `master0slave1` CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE DATABASE `master1` CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE DATABASE `master1slave0` CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE DATABASE `master1slave1` CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE `saga` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- CREATE TABLE t_order
 use master0;
