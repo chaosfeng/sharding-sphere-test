@@ -15,3 +15,4 @@
 - 请先使用项目中的InitDatabase.sql创建相应的库和表
 - 由于Saga事务相关依赖未发布至中央仓库，请将Saga所需依赖和测试类注释掉。
 - 或者自行在本机上[打包部署Saga所需依赖](https://github.com/OpenSharding/shardingsphere-spi-impl)，参考[官方说明](https://shardingsphere.apache.org/document/current/cn/manual/sharding-jdbc/usage/transaction/#base-柔性-事务)
+- 若要测试治理模块，请部署zookeeper并切换maven依赖，查看zookeeper中情况，修改对应属性即可观察到项目的动态变化。
